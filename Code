@@ -1,0 +1,76 @@
+import pandas as pd
+import tkinter as tk
+from tkinter import messagebox 
+root = tk.Tk() 
+root.geometry("500x500") 
+root.title("Text Analyzer")
+w = tk.Label(root, text ='Welcome to Automatic Text Analyser\n', font = "10",fg='blue') 
+w.pack() 
+frame = tk.Frame(root)
+frame.pack()
+def enter():
+ global enter enter=input("Enter text here: \n")
+ 
+def alpha():
+ freq=list()
+ alpha="a b c d e f g h i j k l m n o p q r s t u v w x y z"
+ global alphabets
+ alphabets=alpha.split()
+ print("Frequency of all alphabets in the given text:")
+ for i in alphabets:
+ f=enter.count(i)
+ freq.append(f)
+ df=pd.DataFrame(freq,index=alphabets,columns=['Frequency'])
+ print(df)
+ 
+def words(): 
+ #Frequency of words 
+ 
+ print("Frequency of each words") 
+ words=enter.split()
+ lst_word=list()
+ for word in words:
+ if(word not in lst_word):
+ lst_word.append(word) 
+ print(word,": ",words.count(word))
+ print("\n")
+def spe_char():
+ global words
+ words=enter.split()
+ #Frequency of special characters
+ freq_special_char=0
+ for word in words: for i in word:
+ if(i.isalpha()):pass
+ elif(i.isdigit()):pass
+ else:
+ freq_special_char+=1
+ print("Frequency of special characters: ",freq_special_char) 
+ print("\n")
+def graph(): 
+ lst=list()
+ n=int(input("Enter the number of how many words u want graph visualization: "))
+ for i in range(0,n):
+ w=input("Enter the word: ")
+ lst.append(w)
+ freq=list()
+ for i in lst:
+ x=words.count(i)
+ freq.append(x)
+ 
+ plt.bar(lst, freq,width = 0.5) 
+ plt.xlabel('words') 
+ plt.ylabel('frequency') 
+ plt.title('My bar chart!') 
+ plt.show() 
+button = tk.Button(frame,text='Enter Text',fg='red',font='10',command=enter)
+button.pack()
+button = tk.Button(frame,text='Count Alphabets',fg='red',font='10',command=alpha)
+button.pack()
+button = tk.Button(frame,text='Count Words',fg='red',font='10',command=words)
+button.pack()
+button = tk.Button(frame,text='Count Special 
+Characters',fg='red',font='10',command=spe_char)button.pack()
+button = tk.Button(frame,text='Plot Graph',fg='red',font='10',command=graph)
+button.pack()
+button.pack()
+root.mainloop()
